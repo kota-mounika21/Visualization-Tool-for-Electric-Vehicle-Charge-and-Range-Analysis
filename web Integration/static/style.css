@@ -1,0 +1,335 @@
+/* =========================================
+   1. VARIABLES & RESET
+   ========================================= */
+:root {
+    /* New "Super" Palette */
+    --bg-gradient-start: #0f2027;
+    --bg-gradient-mid: #203a43;
+    --bg-gradient-end: #2c5364;
+    
+    --primary-color: #00d2ff;
+    --secondary-color: #3a7bd5;
+    --accent-color: #ff007f; /* Neon Pink for pop */
+    
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    
+    --text-main: #ffffff;
+    --text-muted: #b3b3b3;
+
+    --font-main: 'Poppins', sans-serif;
+    --transition-speed: 0.3s;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-main);
+    background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-mid), var(--bg-gradient-end));
+    color: var(--text-main);
+    line-height: 1.6;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+    /* Animated subtle background grain/noise could go here, but keeping it clean for now */
+}
+
+/* =========================================
+   2. UTILITIES & ANIMATIONS
+   ========================================= */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+.fade-in {
+    opacity: 0; 
+    animation: fadeInUp 1s ease forwards;
+}
+
+.delay-1 { animation-delay: 0.2s; }
+.delay-2 { animation-delay: 0.4s; }
+.delay-3 { animation-delay: 0.6s; }
+
+/* =========================================
+   3. NAVBAR
+   ========================================= */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 20px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    background: rgba(15, 32, 39, 0.85); /* Slightly darker for readability */
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--glass-border);
+    transition: var(--transition-speed);
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 700;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 1px;
+}
+
+.nav-links a {
+    color: var(--text-main);
+    text-decoration: none;
+    margin-left: 30px;
+    font-weight: 500;
+    position: relative;
+    transition: var(--transition-speed);
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background: var(--primary-color);
+    transition: width 0.3s;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+.nav-links a:hover {
+    color: var(--primary-color);
+}
+
+/* =========================================
+   4. HERO SECTION
+   ========================================= */
+.hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 20px;
+    position: relative;
+}
+
+/* Decorative blurry blobs */
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 20%;
+    left: 10%;
+    width: 300px;
+    height: 300px;
+    background: var(--primary-color);
+    filter: blur(150px);
+    opacity: 0.2;
+    z-index: -1;
+    animation: float 6s ease-in-out infinite;
+}
+
+.hero::after {
+    content: '';
+    position: absolute;
+    bottom: 20%;
+    right: 10%;
+    width: 400px;
+    height: 400px;
+    background: var(--secondary-color);
+    filter: blur(150px);
+    opacity: 0.2;
+    z-index: -1;
+    animation: float 8s ease-in-out infinite reverse;
+}
+
+.hero h1 {
+    font-size: 64px;
+    margin-bottom: 20px;
+    line-height: 1.1;
+    font-weight: 800;
+}
+
+.highlight {
+    color: var(--primary-color);
+}
+
+.hero p {
+    font-size: 20px;
+    max-width: 700px;
+    margin-bottom: 40px;
+    color: var(--text-muted);
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 20px;
+}
+
+/* =========================================
+   5. BUTTONS
+   ========================================= */
+.btn {
+    padding: 14px 32px;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    outline: none;
+}
+
+.btn-primary {
+    background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(0, 210, 255, 0.4);
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 210, 255, 0.6);
+}
+
+.btn-secondary {
+    background: transparent;
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+}
+
+.btn-secondary:hover {
+    background: rgba(0, 210, 255, 0.1);
+    transform: translateY(-3px);
+}
+
+/* =========================================
+   6. SECTIONS & CARDS
+   ========================================= */
+.section {
+    padding: 100px 50px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.section-title {
+    font-size: 36px;
+    text-align: center;
+    margin-bottom: 60px;
+    position: relative;
+    display: inline-block;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 60%;
+    height: 4px;
+    background: var(--primary-color);
+    margin: 10px auto 0;
+    border-radius: 2px;
+}
+
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: var(--glass-shadow);
+    color: var(--text-main);
+    transition: transform 0.3s;
+}
+
+/* .glass-card:hover { /* Optional hover effect for cards */
+   /* transform: scale(1.01); */
+/* } */
+
+.about-content {
+    text-align: center;
+    font-size: 18px;
+    line-height: 1.8;
+    color: var(--text-muted);
+}
+
+/* =========================================
+   7. TABLEAU CONTAINER
+   ========================================= */
+.viz-container {
+    padding: 10px; /* Padding inside the glass card */
+    background: #fff; /* Tableau usually needs white bg or it looks weird with transparency */
+    border-radius: 12px;
+    overflow: hidden; 
+}
+
+/* =========================================
+   8. FOOTER
+   ========================================= */
+footer {
+    text-align: center;
+    padding: 40px;
+    background: rgba(15, 32, 39, 0.95);
+    border-top: 1px solid var(--glass-border);
+    font-size: 14px;
+    color: var(--text-muted);
+}
+
+/* =========================================
+   9. RESPONSIVE
+   ========================================= */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        padding: 20px;
+    }
+    
+    .nav-links {
+        margin-top: 20px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .nav-links a {
+        margin: 0 10px;
+    }
+
+    .hero h1 {
+        font-size: 42px;
+    }
+
+    .hero p {
+        font-size: 16px;
+    }
+
+    .section {
+        padding: 60px 20px;
+    }
+}
